@@ -6,6 +6,8 @@ atoms.positions[1] = (1, 1, 0)
 
 atoms.numbers[0] = 13
 
+#hello
+
 atoms.symbols[2] = 'Cu'
 
 atoms.pbc[2] = 1
@@ -42,5 +44,7 @@ for line in lines:
         charge = charge_list[1]
         ch_list.append(charge)
         # print(charge)
+
+#hi hi hi 
 
 print(ch_list)
