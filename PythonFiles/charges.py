@@ -14,25 +14,22 @@ import shutil
 
 from phonopy.interface.calculator import read_crystal_structure, write_crystal_structure
 
-
-num1 = int(input("What dimension would you like your supercell to be? "))
-num2 = float(input("What displacement would you like to use? "))
-
-
-#DEFINING VARIABLES
-unitcell, optional_structure_info = read_crystal_structure("geometry.in", interface_mode='aims')
-
-
-
 crys = read("geometry.in")
 
-sup_matrix = np.array([[num1, 0, 0], [0, num1, 0], [0, 0, num1]])
-det = np.round(np.linalg.det(sup_matrix))
-phonon = Phonopy(unitcell, supercell_matrix=sup_matrix)
+def make_matrix():
+    num1 = int(input("What dimension would you like your supercell to be? "))
+    num2 = float(input("What displacement would you like to use? "))
 
-phonon.generate_displacements(distance=num2)
-supercells = phonon.supercells_with_displacements
+    unitcell, optional_structure_info = read_crystal_structure("geometry.in", interface_mode='aims')
 
+    sup_matrix = np.array([[num1, 0, 0], [0, num1, 0], [0, 0, num1]])
+    det = np.round(np.linalg.det(sup_matrix))
+    phonon = Phonopy(unitcell, supercell_matrix=sup_matrix)
+
+    phonon.generate_displacements(distance=num2)
+    supercells = phonon.supercells_with_displacements
+
+    return det, supercells
 
 
 def get_charges_and_moments(determinant, atoms_object):
@@ -49,6 +46,7 @@ def get_charges_and_moments(determinant, atoms_object):
 
     return moments2, charges2
 def creating_files_and_directories(atoms_object, charges, moments):
+
     chem_sym = atoms_object.get_chemical_symbols()
     for ind, sup in enumerate(supercells):
         write_crystal_structure(f"geometry_{ind}.in", supercells[ind], interface_mode='aims')
@@ -67,8 +65,9 @@ def creating_files_and_directories(atoms_object, charges, moments):
             atoms.write(path_final + '/geometry.in')
         os.remove(f"geometry_{ind}.in")
 
-charges = get_charges_and_moments(det, crys)[1]
-moments = get_charges_and_moments(det,crys)[0]
-get_charges_and_moments(det, crys)
+
+det, supercells = make_matrix()
+moments, charges = get_charges_and_moments(det,crys)
+
 creating_files_and_directories(crys, charges, moments)
 
