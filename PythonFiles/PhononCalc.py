@@ -13,7 +13,7 @@ ph.run()
 
 ph.read(acoutsic=True) #assemble dynamic matrix
 ph.clean()
-path = atoms.cell.bandpath('GXULGK', npoints=100)
+path = atoms.cell.bandpath(npoints=100)
 bs = ph.get_band_structure(path)
 dos = ph.get_dos(kpts=(20, 20, 20)).sample_grid(npts=100, width=1e-3)
 
@@ -46,7 +46,7 @@ ph.run()
 
 ph.read(acoutsic=True) #assemble dynamic matrix
 ph.clean()
-path = atoms.cell.bandpath('GXULGK', npoints=100)
+path = atoms.cell.bandpath(npoints=100)
 bs = ph.get_band_structure(path)
 dos = ph.get_dos(kpts=(20, 20, 20)).sample_grid(npts=100, width=1e-3)
 
@@ -79,7 +79,7 @@ ph.run()
 
 ph.read(acoutsic=True) #assemble dynamic matrix
 ph.clean()
-path = atoms.cell.bandpath('GXULGK', npoints=100)
+path = atoms.cell.bandpath(npoints=100)
 bs = ph.get_band_structure(path)
 dos = ph.get_dos(kpts=(20, 20, 20)).sample_grid(npts=100, width=1e-3)
 
@@ -112,7 +112,7 @@ ph.run()
 
 ph.read(acoutsic=True) #assemble dynamic matrix
 ph.clean()
-path = atoms.cell.bandpath('GXULGK', npoints=100)
+path = atoms.cell.bandpath(npoints=100)
 bs = ph.get_band_structure(path)
 dos = ph.get_dos(kpts=(20, 20, 20)).sample_grid(npts=100, width=1e-3)
 
@@ -145,7 +145,7 @@ ph.run()
 
 ph.read(acoutsic=True) #assemble dynamic matrix
 ph.clean()
-path = atoms.cell.bandpath('GXULGK', npoints=100)
+path = atoms.cell.bandpath(npoints=100)
 bs = ph.get_band_structure(path)
 dos = ph.get_dos(kpts=(20, 20, 20)).sample_grid(npts=100, width=1e-3)
 
@@ -178,7 +178,7 @@ ph.run()
 
 ph.read(acoutsic=True) #assemble dynamic matrix
 ph.clean()
-path = atoms.cell.bandpath('GXULGK', npoints=100)
+path = atoms.cell.bandpath(npoints=100)
 bs = ph.get_band_structure(path)
 dos = ph.get_dos(kpts=(20, 20, 20)).sample_grid(npts=100, width=1e-3)
 
@@ -211,7 +211,7 @@ ph.run()
 
 ph.read(acoutsic=True) #assemble dynamic matrix
 ph.clean()
-path = atoms.cell.bandpath('GXULGK', npoints=100)
+path = atoms.cell.bandpath(npoints=100)
 bs = ph.get_band_structure(path)
 dos = ph.get_dos(kpts=(20, 20, 20)).sample_grid(npts=100, width=1e-3)
 
