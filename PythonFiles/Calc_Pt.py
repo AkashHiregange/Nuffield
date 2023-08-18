@@ -14,13 +14,8 @@ from phonopy.interface.calculator import read_crystal_structure, write_crystal_s
 
 
 def make_matrix(atoms_object):
-    '''
-
-    :param atoms_object:
-    :return:
-    '''
-    num1 = 2
-    num2 = 0.01
+    num1 = int(input("What dimension would you like your supercell to be? "))
+    num2 = float(input("What displacement would you like to use? "))
 
     atoms_object.write('geometry.in')
     unitcell, optional_structure_info = read_crystal_structure("geometry.in", interface_mode='aims')
@@ -32,19 +27,6 @@ def make_matrix(atoms_object):
 
     phonon.generate_displacements(distance=num2)
     supercells = phonon.supercells_with_displacements
-    phonon.save('phonopy_disp.yaml')
-    import yaml
-    from yaml import load
-    from yaml import CLoader as Loader
-    stream = open("phonopy_disp.yaml", 'r')
-    dictionary = yaml.load(stream, Loader)
-    stream.close()
-    print(dictionary)
-    dictionary['phonopy'].update([('calculator', 'aims'), ('configuration', {'create_displacements': '".true."', 'dim': f'"{num1} {num1} {num1}"', 'calculator': '"aims"'})])
-    # dictionary['physical_unit'].update([('length', '"angstrom"'), ('force_constants', '"eV/angstrom^2"')])
-    print(dictionary)
-    with open('phonopy_disp.yaml', 'w') as f:
-        data = yaml.dump(dictionary, f, sort_keys=False)
 
     return det, supercells
 
@@ -65,13 +47,6 @@ def get_charges_and_moments(determinant, atoms_object):
 
 
 def creating_files_and_directories(atoms_object, charges, moments):
-    '''
-
-    :param atoms_object:
-    :param charges:
-    :param moments:
-    :return:
-    '''
 
     chem_sym = atoms_object.get_chemical_symbols()
     for ind, sup in enumerate(supercells):
@@ -108,11 +83,10 @@ def creating_files_and_directories(atoms_object, charges, moments):
         os.remove(f"geometry_{ind+1:03}.in")
 
 
-crys = bulk('Al', 'fcc', a=4.121)
+crys = bulk('Pt', 'fcc', a=4.121)
 
 det, supercells = make_matrix(crys)
 moments, charges = get_charges_and_moments(det,crys)
-print(moments)
 
 creating_files_and_directories(crys, charges, moments)
 
